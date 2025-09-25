@@ -1,6 +1,6 @@
-const { spawn } = require("child_process");
-const os = require("os");
-const fs = require("fs");
+import { spawn } from "child_process";
+import os from "os";
+import fs from "fs";
 
 // Detect LAN IPv4
 function getLocalIP() {
@@ -33,7 +33,8 @@ let processes = [];
 
 // Helper to spawn commands cross-platform
 function runCommand(command, args, cwd) {
-  const proc = spawn(command, args, { stdio: "inherit", cwd });
+  const proc = spawn(command, args, { stdio: "inherit", cwd, shell: true });
+  proc.on("error", err => console.error(`Failed to start ${command}:`, err));
   processes.push(proc);
   return proc;
 }
@@ -46,8 +47,6 @@ runCommand("python", [
   "--port", "8000"
 ], PYTHON_DIR);
 
-
-// Delay before Laravel
 setTimeout(() => {
   runCommand("php", [
     "artisan", "serve",
