@@ -23,7 +23,7 @@ RUN python3 -m venv .venv \
     && .venv/bin/pip install -r requirements.txt \
     && .venv/bin/pip show uvicorn
 
-RUN cp -r .env.example .env && php artisan key:generate && php artisan migrate
+RUN php artisan migrate
 
 EXPOSE 8000 9000
 
