@@ -27,4 +27,4 @@ RUN cp -r .env.example .env && php artisan key:generate && php artisan migrate
 
 EXPOSE 8000 9000
 
-CMD ["bash", "-c", "php artisan serve --host=0.0.0.0 --port=9000 & source .venv/bin/activate && uvicorn backend.main:app --host 0.0.0.0 --port 8000"]
+CMD ["bash", "-c", "php artisan serve --host=0.0.0.0 --port=8000 & source .venv/bin/activate && uvicorn backend.main:app --host 0.0.0.0 --port 9000"]
