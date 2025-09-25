@@ -23,7 +23,7 @@ RUN python3 -m venv .venv \
     && .venv/bin/pip install -r requirements.txt \
     && .venv/bin/pip show uvicorn
 
-RUN php artisan migrate --force
+RUN touch /var/www/html/d/database/database.sqlite && php artisan migrate --force
 
 EXPOSE 8000 9000
 
