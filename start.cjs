@@ -38,13 +38,14 @@ function runCommand(command, args, cwd) {
   return proc;
 }
 
-// Start Python Backend (Linux way)
-runCommand("uvicorn", [
+runCommand("python", [
+  "-m", "uvicorn",
   "main:app",
   "--reload",
   "--host", "0.0.0.0",
   "--port", "8000"
 ], PYTHON_DIR);
+
 
 // Delay before Laravel
 setTimeout(() => {
