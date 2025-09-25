@@ -79,15 +79,19 @@ def download_video(
     temp_file = os.path.join(DOWNLOAD_DIR, f"{uuid.uuid4()}.%(ext)s")
     format_option = f"{video_format_id}+bestaudio/best"
 
+    FFMPEG_PATH = "/usr/bin/ffmpeg"
+
     command = [
         YT_DLP_PATH,
         "-f", format_option,
         "-o", temp_file,
         "--merge-output-format", "mp4",
         "--ffmpeg-location", FFMPEG_PATH,
-        "--postprocessor-args", "-c:v libx264 -c:a aac",
+        "--postprocessor-args:ffmpeg", "-c:v libx264 -c:a aac",
         url
     ]
+
+    print("Running command:", " ".join(command))  # Optional debug log
 
     result = subprocess.run(command, capture_output=True, text=True)
     if result.returncode != 0:
