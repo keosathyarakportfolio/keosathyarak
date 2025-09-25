@@ -4,8 +4,8 @@ FROM php:8.2-fpm
 # --- Install system dependencies + FFmpeg ---
 RUN apt-get update && apt-get install -y \
     git unzip curl libpng-dev libonig-dev libxml2-dev zip \
-    python3 python3-pip nodejs npm ffmpeg \
-    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd \
+    python3 python3-pip ffmpeg \
+    && docker-php-ext-install mbstring exif pcntl bcmath gd \
     && rm -rf /var/lib/apt/lists/*
 
 # --- Set working directory ---
@@ -17,11 +17,6 @@ COPY . .
 # --- Install PHP dependencies ---
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN composer install --no-dev --optimize-autoloader
-
-# --- Install Node dependencies (for frontend assets) ---
-RUN npm install
-RUN npm run build
-
 # --- Install Python dependencies ---
 RUN pip3 install --upgrade pip
 RUN pip3 install -r requirements.txt
