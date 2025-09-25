@@ -18,8 +18,8 @@ COPY . .
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN composer install --no-dev --optimize-autoloader
 # --- Install Python dependencies ---
-RUN pip3 install --upgrade pip
-RUN pip3 install -r requirements.txt
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
 
 # --- Expose ports ---
 EXPOSE 8000 9000
