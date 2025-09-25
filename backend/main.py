@@ -87,7 +87,7 @@ def download_video(
         "-o", temp_file,
         "--merge-output-format", "mp4",
         "--ffmpeg-location", FFMPEG_PATH,
-        "--postprocessor-args:ffmpeg", "-c:v libx264 -c:a aac",
+        "--postprocessor-args", "-c:v libx264 -c:a aac",
         url
     ]
 
