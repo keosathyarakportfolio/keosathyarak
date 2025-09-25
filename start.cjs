@@ -20,7 +20,6 @@ const PYTHON_DIR = "backend";
 const LARAVEL_DIR = "./";
 const PYTHON_FILE = `${PYTHON_DIR}/main.py`;
 
-// Check files exist
 if (!fs.existsSync(PYTHON_FILE)) {
   console.error(`Python folder "${PYTHON_DIR}" មិនមាន main.py`);
   process.exit(1);
@@ -32,22 +31,28 @@ if (!fs.existsSync(`${LARAVEL_DIR}/artisan`)) {
 
 let processes = [];
 
-// Start Python Backend
-const pythonBackend = spawn("cmd.exe", [
-  "/c", "cd", "/d", PYTHON_DIR, "&&",
-  "uvicorn", "main:app", "--reload", "--host", "0.0.0.0", "--port", "8000"
-], { stdio: "inherit" });
+// Helper to spawn commands cross-platform
+function runCommand(command, args, cwd) {
+  const proc = spawn(command, args, { stdio: "inherit", cwd });
+  processes.push(proc);
+  return proc;
+}
 
-processes.push(pythonBackend);
+// Start Python Backend (Linux way)
+runCommand("uvicorn", [
+  "main:app",
+  "--reload",
+  "--host", "0.0.0.0",
+  "--port", "8000"
+], PYTHON_DIR);
 
 // Delay before Laravel
 setTimeout(() => {
-  const laravelFrontend = spawn("cmd.exe", [
-    "/c", "cd", "/d", LARAVEL_DIR, "&&",
-    "php", "artisan", "serve", "--host", "0.0.0.0", "--port", "8001"
-  ], { stdio: "inherit" });
-
-  processes.push(laravelFrontend);
+  runCommand("php", [
+    "artisan", "serve",
+    "--host=0.0.0.0",
+    "--port=8001"
+  ], LARAVEL_DIR);
 }, 2000);
 
 console.log("\n----------------------------------");
