@@ -23,7 +23,7 @@
         <div class="mb-6 p-4 border border-red-400 bg-red-100 text-red-700 rounded-md">
             <ul class="list-disc pl-5">
                 @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
+                    {{ $error }}
                 @endforeach
             </ul>
         </div>
