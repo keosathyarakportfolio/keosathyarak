@@ -13,7 +13,7 @@ class DownloadController extends Controller
     public function __construct()
     {
         // Read from environment variable
-        $this->pythonApi = env('PYTHON_API', 'http://127.0.0.1:9000');
+        $this->pythonApi = env('PYTHON_API', 'https://127.0.0.1:9000');
     }
 
     public function showForm()
