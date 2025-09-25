@@ -1,28 +1,30 @@
-# --- Base image with PHP 8.2 and Composer ---
 FROM php:8.2-fpm
 
-# --- Install system dependencies + FFmpeg ---
 RUN apt-get update && apt-get install -y \
-    git unzip curl libpng-dev libonig-dev libxml2-dev zip \
-    python3 python3-pip ffmpeg \
+    git unzip curl libpng-dev libxml2-dev zip \
+    python3 python3-pip ffmpeg libonig-dev python3.13-venv \
     && docker-php-ext-install mbstring exif pcntl bcmath gd \
     && rm -rf /var/lib/apt/lists/*
 
-# --- Set working directory ---
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
 WORKDIR /var/www/html
 
-# --- Copy Laravel and Python files ---
-COPY . .
+RUN git clone --depth 1 https://github.com/keosathyarakportfolio/downloader.git d
 
-# --- Install PHP dependencies ---
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+WORKDIR /var/www/html/d
+
 RUN composer install --no-dev --optimize-autoloader
-# --- Install Python dependencies ---
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
 
-# --- Expose ports ---
+RUN python3 -m venv .venv
+
+RUN python3 -m venv .venv \
+    && .venv/bin/pip install --upgrade pip \
+    && .venv/bin/pip install -r requirements.txt \
+    && .venv/bin/pip show uvicorn
+
+RUN cp -r .env.example .env && php artisan key:generate && php artisan migrate
+
 EXPOSE 8000 9000
 
-# --- Start both Laravel and Python apps concurrently ---
-CMD bash -c "php artisan serve --host=0.0.0.0 --port=8000 & uvicorn main:app --host 0.0.0.0 --port 9000"
+CMD ["bash", "-c", "php artisan serve --host=0.0.0.0 --port=9000 & source .venv/bin/activate && uvicorn backend.main:app --host 0.0.0.0 --port 8000"]
