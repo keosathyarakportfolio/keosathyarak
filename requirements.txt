@@ -2,6 +2,8 @@ fastapi==0.111.0
 uvicorn[standard]==0.23.2
 requests==2.31.0
 python-multipart==0.0.9
-pydantic==2.6.4        # ឬ version ≥2.6.x មាន wheel build-in សម្រាប់ Python 3.13
+pydantic==2.6.4         # ✅ មាន wheel build-in សម្រាប់ Python 3.13
+pydantic-core==2.16.3   # ✅ កំណែមាន wheel → មិន build maturin
 yt-dlp==2025.9.23
+
 
