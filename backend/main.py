@@ -7,9 +7,7 @@ app = FastAPI()
 
 YT_DLP_PATH = "yt-dlp"
 
-FFMPEG_PATH = str(Path(__file__).resolve().parent.parent / "node_modules/@ffmpeg-installer/linux-x64/ffmpeg")
-if not os.path.exists(FFMPEG_PATH):
-    raise RuntimeError(f"FFmpeg not found at {FFMPEG_PATH}")
+FFMPEG_PATH = "ffmpeg"
 
 DOWNLOAD_DIR = "downloads"
 os.makedirs(DOWNLOAD_DIR, exist_ok=True)
