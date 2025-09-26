@@ -10,7 +10,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 WORKDIR /var/www/html
 
-RUN git clone --depth 1 https://github.com/keosathyarakportfolio/downloader.git d
+COPY . /var/www/html/d
 
 WORKDIR /var/www/html/d
 
