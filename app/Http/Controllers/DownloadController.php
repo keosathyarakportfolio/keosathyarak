@@ -18,7 +18,6 @@ class DownloadController extends Controller
 
     public function showForm()
     {
-        return $this->pythonApi;
         return view('home', [
             'videoUrl' => '',
             'videoInfo' => null
