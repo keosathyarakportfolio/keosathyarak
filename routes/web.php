@@ -9,7 +9,7 @@ Route::get('/aboutme', function() {
 
 Route::get('/', [DownloadController::class, 'showForm']);
 Route::post('/get-video', [DownloadController::class, 'getVideo'])->name('getvideo');
-Route::get('/download-video', [DownloadController::class, 'downloadVideo'])->name('download.video');
+Route::POST('/download-video', [DownloadController::class, 'downloadVideo'])->name('download.video');
 
 
 

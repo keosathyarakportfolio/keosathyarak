@@ -13,7 +13,7 @@ class DownloadController extends Controller
     public function __construct()
     {
         // Read from environment variable
-        $this->pythonApi = env('PYTHON_API', 'https://backend-4ix7.onrender.com');
+        $this->pythonApi = env('PYTHON_API', 'https://downloader-dait.onrender.com');
     }
 
     public function showForm()
@@ -45,11 +45,19 @@ class DownloadController extends Controller
     }
 
     public function downloadVideo(Request $request)
-    {
-        $url = $request->query('url');
-        $formatId = $request->query('video_format_id');
+{
+    $url = $request->input('url');
+    $formatId = $request->input('video_format_id');
 
-        $downloadUrl = $this->pythonApi . "/download-video?url=" . urlencode($url) . "&video_format_id=" . urlencode($formatId);
-        return redirect()->away($downloadUrl);
-    }
+    // Send POST request to Python API
+    $response = Http::asForm()->post($this->pythonApi . '/download', [
+        'url' => $url,
+        'format_id' => $formatId,
+    ]);
+
+    // Return file response directly if Python API returns the file
+    return response($response->body(), 200)
+        ->header('Content-Type', $response->header('Content-Type'))
+        ->header('Content-Disposition', $response->header('Content-Disposition'));
+}
 }
