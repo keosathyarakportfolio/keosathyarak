@@ -13,7 +13,7 @@ class DownloadController extends Controller
     public function __construct()
     {
         // Read from environment variable
-        $this->pythonApi = env('PYTHON_API', 'https://downloader-dait.onrender.com');
+        $this->pythonApi = env('PYTHON_API', 'https://downloader-v24x.onrender.com/');
     }
 
     public function showForm()
