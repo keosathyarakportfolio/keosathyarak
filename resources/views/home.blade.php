@@ -42,6 +42,7 @@
         </div>
     @endif
 
+    {{-- Success Message --}}
     {{-- Video Info Display --}}
     @if(!empty($videoInfo))
         <div class="flex flex-col sm:flex-row gap-8">

@@ -13,7 +13,7 @@ class DownloadController extends Controller
     public function __construct()
     {
         // Read from environment variable
-        $this->pythonApi = env('PYTHON_API', 'https://downloader-v24x.onrender.com/');
+        $this->pythonApi = env('PYTHON_API', 'http://127.0.0.1:8000');
     }
 
     public function showForm()
@@ -30,11 +30,11 @@ class DownloadController extends Controller
         $url = $request->input('videoUrl');
 
         try {
-            $response = Http::timeout(30)->get($this->pythonApi . "/get-video", ['url' => $url]);
-
+            $response = Http::timeout(30)->get($this->pythonApi . "/get-video?url=" . urlencode($url));
             if ($response->failed()) {
                 return back()->withErrors(['videoUrl' => 'បរាជ័យក្នុងការទាញព័ត៌មានវីដេអូ']);
             }
+            
 
             $videoInfo = $response->json();
             return view('home', ['videoUrl' => $url, 'videoInfo' => $videoInfo]);
