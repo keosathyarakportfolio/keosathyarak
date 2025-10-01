@@ -13,7 +13,7 @@ class DownloadController extends Controller
     public function __construct()
     {
         // Read from environment variable
-        $this->pythonApi = env('PYTHON_API', 'http://127.0.0.1:8000');
+        $this->pythonApi = env('PYTHON_API', 'https://downloader-ttg5.onrender.com');
     }
 
     public function showForm()
