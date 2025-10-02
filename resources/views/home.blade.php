@@ -7,16 +7,32 @@
     <h2 class="text-3xl font-semibold mb-6 text-center">Enter a video link to download</h2>
 
     {{-- Video URL Form --}}
-    <form method="POST" action="{{ route('getvideo') }}" class="flex flex-col sm:flex-row gap-4 mb-6" onsubmit="showLoadingInButton(event)">
+    <form method="POST" action="{{ route('getvideo') }}" 
+          class="flex flex-col sm:flex-row gap-4 mb-6 relative"
+          onsubmit="showLoadingInButton(event)">
         @csrf
-        <input 
-            name="videoUrl" 
-            type="url" 
-            placeholder="YouTube, Facebook, TikTok, Instagram URL" 
-            value="{{ old('videoUrl', $videoUrl ?? '') }}" 
-            class="flex-grow px-4 py-3 border rounded-md" 
-            required 
-        />
+
+        <div class="relative flex-grow">
+            <input 
+                id="videoUrlInput"
+                name="videoUrl" 
+                type="url" 
+                placeholder="YouTube, Facebook, TikTok, Instagram URL" 
+                value="{{ old('videoUrl', $videoUrl ?? '') }}" 
+                class="w-full px-4 py-3 pr-10 border rounded-md 
+                       text-gray-800 dark:text-gray-200 
+                       placeholder-gray-500 dark:placeholder-gray-400 
+                       bg-white dark:bg-gray-800 
+                       border-gray-300 dark:border-gray-600" 
+                required 
+            />
+            <!-- Clear button -->
+            <button type="button" id="clearInputBtn"
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-red-500 hidden">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
         <button 
             id="downloadBtn" 
             type="submit" 
@@ -42,36 +58,50 @@
         </div>
     @endif
 
-    {{-- Success Message --}}
     {{-- Video Info Display --}}
     @if(!empty($videoInfo))
-        <div class="flex flex-col sm:flex-row gap-8">
+        <div id="videoInfoSection" class="flex flex-col sm:flex-row gap-8">
             <div class="text-center sm:text-left max-w-xs">
                 <img src="{{ $videoInfo['thumbnail'] }}" class="rounded-md mb-4 w-full" alt="Thumbnail">
-                <p class="font-semibold text-gray-800">{{ $videoInfo['title'] }}</p>
-                <p class="text-gray-600">Duration: {{ gmdate('i:s', $videoInfo['duration'] ?? 0) }}</p>
+                <p class="font-semibold text-gray-800 dark:text-gray-200">{{ $videoInfo['title'] }}</p>
+                <p class="text-gray-600 dark:text-gray-400">Duration: {{ gmdate('i:s', $videoInfo['duration'] ?? 0) }}</p>
             </div>
 
-            <div class="flex-1 border rounded-md shadow-sm bg-white">
-                <div class="bg-orange-100 border-b px-4 py-2 flex items-center gap-2 font-semibold text-orange-600">
+            <div class="flex-1 border rounded-md shadow-sm 
+                        bg-white dark:bg-gray-800 
+                        border-gray-200 dark:border-gray-700">
+
+                <!-- Header -->
+                <div class="bg-orange-100 dark:bg-gray-700 
+                            border-b border-gray-200 dark:border-gray-600 
+                            px-4 py-2 flex items-center gap-2 
+                            font-semibold text-orange-600 dark:text-orange-400">
                     <i class="fas fa-video"></i> Available Formats
                 </div>
-                <div class="divide-y">
+
+                <!-- Formats -->
+                <div class="divide-y divide-gray-200 dark:divide-gray-700">
                     @foreach($videoInfo['formats'] as $format)
                         <div class="flex justify-between items-center px-4 py-3">
                             <div>
                                 <div class="flex items-center gap-2">
-                                    <span class="font-semibold text-gray-800">{{ $format['quality'] }}</span>
-                                    <span class="text-gray-600">{{ $format['ext'] }}</span>
+                                    <span class="font-semibold text-gray-800 dark:text-gray-200">{{ $format['quality'] }}</span>
+                                    <span class="text-gray-600 dark:text-gray-400">{{ $format['ext'] }}</span>
                                 </div>
-                                <div class="text-gray-500 text-sm">Size: {{ $format['filesize'] ?? 'Unknown' }}</div>
+                                <div class="text-gray-500 dark:text-gray-400 text-sm">
+                                    Size: {{ $format['filesize'] ?? 'Unknown' }}
+                                </div>
                             </div>
-                            {{-- Download Button Form --}}
+
+                            {{-- Download Button --}}
                             <form method="POST" action="{{ route('download.video') }}" target="_blank">
                                 @csrf
                                 <input type="hidden" name="url" value="{{ $videoUrl }}">
                                 <input type="hidden" name="video_format_id" value="{{ $format['format_id'] }}">
-                                <button type="submit" class="bg-orange-500 text-white px-4 py-2 rounded-md flex items-center gap-2 hover:bg-orange-600 transition">
+                                <button type="submit" 
+                                    class="bg-orange-500 hover:bg-orange-600 
+                                           dark:bg-orange-600 dark:hover:bg-blue-700
+                                           text-white px-4 py-2 rounded-md flex items-center gap-2 transition">
                                     <i class="fas fa-download"></i> Download
                                 </button>
                             </form>
@@ -79,6 +109,7 @@
                     @endforeach
                 </div>
             </div>
+
         </div>
     @endif
 </div>
@@ -97,6 +128,30 @@ function showLoadingInButton(event){
     btn.disabled = true;
     btn.classList.add('opacity-70', 'cursor-not-allowed');
 }
+
+// ---- Clear Input ----
+const videoUrlInput = document.getElementById('videoUrlInput');
+const clearBtn = document.getElementById('clearInputBtn');
+const videoInfoSection = document.getElementById('videoInfoSection');
+
+function updateClearBtn() {
+    clearBtn.classList.toggle('hidden', videoUrlInput.value === '');
+}
+
+videoUrlInput.addEventListener('input', updateClearBtn);
+
+clearBtn.addEventListener('click', () => {
+    videoUrlInput.value = '';
+    clearBtn.classList.add('hidden');
+    videoUrlInput.focus();
+    // Clear video info if exists
+    if(videoInfoSection) {
+        videoInfoSection.innerHTML = '';
+    }
+});
+
+// Show clear button if input already has value (after page load)
+updateClearBtn();
 </script>
 @endpush
 @endsection
