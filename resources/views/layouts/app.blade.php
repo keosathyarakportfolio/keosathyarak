@@ -107,7 +107,7 @@ updateIcon(darkToggleMobile);
 
 <footer class="bg-orange-500 dark:bg-gray-900 text-white mt-8 transition-colors duration-300">
     <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center text-sm">
-        <span>© {{ date('Y') }} New Generation. All rights reserved.</span>
+        <span>© {{ date('Y') }} Keo Sathyarak. All rights reserved.</span>
     </div>
 </footer>
 
