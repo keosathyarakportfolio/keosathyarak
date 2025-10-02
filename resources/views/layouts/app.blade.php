@@ -18,7 +18,7 @@
     <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
         <!-- Logo -->
         <h1 class="text-2xl font-semibold flex items-center gap-2">
-            <i class="fas fa-tools text-4xl"></i> New Generation
+            <i class="fas fa-tools text-4xl"></i> KEO SATHYARAK
         </h1>
 
         <!-- Desktop nav -->
@@ -108,7 +108,6 @@ updateIcon(darkToggleMobile);
 <footer class="bg-orange-500 dark:bg-gray-900 text-white mt-8 transition-colors duration-300">
     <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center text-sm">
         <span>© {{ date('Y') }} New Generation. All rights reserved.</span>
-        <span>Made by Sathyarak</span>
     </div>
 </footer>
 
