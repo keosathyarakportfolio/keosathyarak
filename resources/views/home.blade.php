@@ -100,7 +100,7 @@
                                 <input type="hidden" name="video_format_id" value="{{ $format['format_id'] }}">
                                 <button type="submit" 
                                     class="bg-orange-500 hover:bg-orange-600 
-                                           dark:bg-orange-600 dark:hover:bg-blue-700
+                                           dark:bg-orange-600 dark:hover:bg-orange-700
                                            text-white px-4 py-2 rounded-md flex items-center gap-2 transition">
                                     <i class="fas fa-download"></i> Download
                                 </button>
