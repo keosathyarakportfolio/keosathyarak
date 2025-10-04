@@ -150,6 +150,8 @@ clearBtn.addEventListener('click', () => {
     }
 });
 
+
+
 // Show clear button if input already has value (after page load)
 updateClearBtn();
 </script>
