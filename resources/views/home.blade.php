@@ -149,6 +149,10 @@ clearBtn.addEventListener('click', () => {
         videoInfoSection.innerHTML = '';
     }
 });
+window.onload = function() {
+    window.history.replaceState({}, '', '/');
+};
+
 
 
 
