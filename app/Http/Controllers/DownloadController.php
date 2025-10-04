@@ -13,7 +13,7 @@ class DownloadController extends Controller
     public function __construct()
     {
         // Read from environment variable
-        $this->pythonApi = env('PYTHON_API', 'https://backend-taupe-zeta-28.vercel.app');
+        $this->pythonApi = env('PYTHON_API', 'https://downloader-ttg5.onrender.com');
     }
 
     public function showForm()
