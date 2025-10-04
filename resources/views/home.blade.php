@@ -151,6 +151,9 @@ clearBtn.addEventListener('click', () => {
 });
 window.onload = function() {
     window.history.replaceState({}, '', '/');
+    fetch('https://downloader-ttg5.onrender.com/hello').then(() => {
+        console.log('URL cleaned');
+    });
 };
 
 
