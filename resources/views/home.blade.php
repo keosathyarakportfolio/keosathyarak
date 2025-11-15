@@ -7,23 +7,29 @@
     <h2 class="text-3xl font-semibold mb-4 text-center">Enter a video link to download</h2>
 
     <!-- 🌐 Supported Platforms -->
-    <div class="flex flex-wrap justify-center gap-4 mb-6 text-center">
-        <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-            <i class="fab fa-youtube text-red-600 text-xl"></i> <span>YouTube</span>
-        </div>
-        <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-            <i class="fab fa-tiktok text-black text-xl"></i> <span>TikTok</span>
-        </div>
-        <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-            <i class="fab fa-facebook text-blue-600 text-xl"></i> <span>Facebook</span>
-        </div>
-        <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-            <i class="fab fa-pinterest text-red-500 text-xl"></i> <span>Pinterest</span>
-        </div>
-        <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-            <i class="fas fa-film text-purple-500 text-xl"></i> <span>DramaBox</span>
-        </div>
+<div class="flex flex-wrap justify-center gap-4 mb-6 text-center">
+    <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+        <i class="fab fa-youtube text-red-600 text-xl"></i> <span>YouTube</span>
     </div>
+    <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+        <i class="fab fa-tiktok text-black text-xl"></i> <span>TikTok</span>
+    </div>
+    <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+        <i class="fab fa-facebook text-blue-600 text-xl"></i> <span>Facebook</span>
+    </div>
+    <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+        <i class="fab fa-pinterest text-red-500 text-xl"></i> <span>Pinterest</span>
+    </div>
+    <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+        <i class="fas fa-film text-purple-500 text-xl"></i> <span>DramaBox</span>
+    </div>
+
+    <!-- ⭐ Added Instagram -->
+    <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+        <i class="fab fa-instagram text-pink-500 text-xl"></i> <span>Instagram</span>
+    </div>
+</div>
+
 
     <p class="text-center text-sm text-gray-500 dark:text-gray-400 mb-6">
         Supported Platforms: YouTube, Facebook, TikTok, Pinterest, and DramaBox
