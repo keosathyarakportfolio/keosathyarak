@@ -1,4 +1,4 @@
-# Use Alpine with PHP-FPM
+# Base image: PHP-FPM on Alpine
 FROM php:8.2-fpm-alpine
 
 # Install system dependencies
@@ -13,13 +13,23 @@ RUN apk add --no-cache \
     libfreetype-dev \
     oniguruma-dev \
     libxml2-dev \
-    sqlite \
+    sqlite-libs \
     sqlite-dev \
     nodejs \
     npm
 
 # Install PHP extensions required by Laravel
-RUN docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd
+RUN docker-php-ext-configure gd \
+    --with-freetype \
+    --with-jpeg \
+ && docker-php-ext-install \
+    pdo \
+    pdo_mysql \
+    mbstring \
+    exif \
+    pcntl \
+    bcmath \
+    gd
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
@@ -36,7 +46,7 @@ RUN composer install --no-dev --optimize-autoloader
 # Permissions for Laravel storage & bootstrap cache
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
-# Expose port
+# Expose PHP-FPM port
 EXPOSE 9000
 
 CMD ["php-fpm"]
