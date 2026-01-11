@@ -1,4 +1,4 @@
-FROM php:8.5-fpm
+FROM php:8.2-fpm
 
 # 1. Install system dependencies
 # Added libpq-dev in case you use Postgres, kept others.
@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # 2. Install Composer
-COPY --from=composer:latest /usr/local/bin/composer /usr/local/bin/composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # 3. Set Working Directory
 WORKDIR /var/www
