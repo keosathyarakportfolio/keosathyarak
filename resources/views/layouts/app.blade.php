@@ -18,52 +18,61 @@
     class="bg-white dark:bg-black min-h-screen flex flex-col text-black dark:text-white transition-colors duration-300">
 
     <header class="bg-orange-500 dark:bg-gray-900 text-white shadow-md transition-colors duration-300">
-        <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-            <!-- Logo -->
-            <h1 class="text-2xl font-semibold flex items-center gap-2">
-                <i class="fas fa-tools text-4xl"></i> KEO SATHYARAK
-            </h1>
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+        <!-- Logo -->
+        <h1 class="text-2xl font-semibold flex items-center gap-2">
+            <i class="fas fa-tools text-4xl"></i> KEO SATHYARAK
+        </h1>
 
-            <!-- Desktop nav -->
-            <nav class="hidden md:flex items-center gap-4">
-                <a href="{{ url('/') }}" class="flex items-center gap-1 hover:underline">
-                    <i class="fas fa-download"></i> Download
-                </a>
-                <a href="{{ url('/aboutme') }}" class="flex items-center gap-1 hover:underline">
-                    <i class="fas fa-user"></i> About Me
-                </a>
-
-                <!-- Dark mode toggle -->
-                <button id="dark-toggle" class="ml-4 focus:outline-none">
-                    <i class="fas fa-moon"></i>
-                </button>
-            </nav>
-
-            <!-- Mobile hamburger button -->
-            <button id="menu-btn" class="md:hidden focus:outline-none">
-                <i class="fas fa-bars text-2xl"></i>
-            </button>
-        </div>
-
-        <!-- Mobile nav menu -->
-        <nav id="mobile-menu" class="hidden flex-col px-4 pb-4 md:hidden bg-orange-600 dark:bg-gray-900">
-            <a href="{{ url('/') }}"
-                class="flex items-center gap-1 py-2 hover:bg-orange-500 dark:hover:bg-gray-700 rounded">
+        <!-- Desktop nav -->
+        <nav class="hidden md:flex items-center gap-4">
+            <a href="{{ url('/') }}" class="flex items-center gap-1 hover:underline">
                 <i class="fas fa-download"></i> Download
             </a>
-            <a href="{{ url('/aboutme') }}"
-                class="flex items-center gap-1 py-2 hover:bg-orange-500 dark:hover:bg-gray-700 rounded">
+            <a href="{{ url('/aboutme') }}" class="flex items-center gap-1 hover:underline">
                 <i class="fas fa-user"></i> About Me
             </a>
+            <!-- AI Chatbot link -->
+            <a href="{{ url('/aichat') }}" class="flex items-center gap-1 hover:underline">
+                <i class="fas fa-robot"></i> Chatbot
+            </a>
 
-            <!-- Dark mode toggle mobile -->
-            <button id="dark-toggle-mobile"
-                class="flex items-center gap-1 py-2 bg-orange-500 hover:bg-orange-600 dark:bg-gray-700 dark:hover:bg-gray-600 rounded w-full justify-center text-white">
+            <!-- Dark mode toggle -->
+            <button id="dark-toggle" class="ml-4 focus:outline-none">
                 <i class="fas fa-moon"></i>
             </button>
-
         </nav>
-    </header>
+
+        <!-- Mobile hamburger button -->
+        <button id="menu-btn" class="md:hidden focus:outline-none">
+            <i class="fas fa-bars text-2xl"></i>
+        </button>
+    </div>
+
+    <!-- Mobile nav menu -->
+    <nav id="mobile-menu" class="hidden flex-col px-4 pb-4 md:hidden bg-orange-600 dark:bg-gray-900">
+        <a href="{{ url('/') }}"
+            class="flex items-center gap-1 py-2 hover:bg-orange-500 dark:hover:bg-gray-700 rounded">
+            <i class="fas fa-download"></i> Download
+        </a>
+        <a href="{{ url('/aboutme') }}"
+            class="flex items-center gap-1 py-2 hover:bg-orange-500 dark:hover:bg-gray-700 rounded">
+            <i class="fas fa-user"></i> About Me
+        </a>
+        <!-- AI Chatbot mobile -->
+        <a href="{{ url('/aichat') }}"
+            class="flex items-center gap-1 py-2 hover:bg-orange-500 dark:hover:bg-gray-700 rounded">
+            <i class="fas fa-robot"></i> Chatbot
+        </a>
+
+        <!-- Dark mode toggle mobile -->
+        <button id="dark-toggle-mobile"
+            class="flex items-center gap-1 py-2 bg-orange-500 hover:bg-orange-600 dark:bg-gray-700 dark:hover:bg-gray-600 rounded w-full justify-center text-white">
+            <i class="fas fa-moon"></i>
+        </button>
+    </nav>
+</header>
+
 
     <script>
         const btn = document.getElementById('menu-btn');
