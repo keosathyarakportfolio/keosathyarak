@@ -1,30 +1,83 @@
-FROM php:8.2-fpm
+# ===== Final Laravel 8/9/10/12 Alpine Dockerfile =====
+FROM php:8.2-fpm-alpine
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    git unzip curl libpng-dev libxml2-dev zip \
-    ffmpeg libonig-dev \
-    && docker-php-ext-install mbstring exif pcntl bcmath gd pdo_mysql \
-    && rm -rf /var/lib/apt/lists/*
+# ----------------------------
+# 1️⃣ Install system dependencies
+# ----------------------------
+RUN apk add --no-cache \
+    git \
+    unzip \
+    curl \
+    ffmpeg \
+    oniguruma-dev \
+    libxml2-dev \
+    libpng-dev \
+    freetype-dev \
+    libjpeg-turbo-dev \
+    libwebp-dev \
+    libzip-dev \
+    zip \
+    mysql-client \
+    bash \
+    shadow  # for user permissions
 
-# Install Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# ----------------------------
+# 2️⃣ Install PHP extensions (only non-core)
+# ----------------------------
+RUN docker-php-ext-configure gd \
+        --with-freetype \
+        --with-jpeg \
+        --with-webp \
+    && docker-php-ext-install \
+        bcmath \
+        exif \
+        gd \
+        mbstring \
+        pdo \
+        pdo_mysql \
+        zip \
+        dom
 
-# Set working directory
+# ----------------------------
+# 3️⃣ Install Composer (official)
+# ----------------------------
+RUN  curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
+
+# ----------------------------
+# 4️⃣ Set working directory
+# ----------------------------
 WORKDIR /var/www/html
 
-# Copy application code
-COPY . .
+# ----------------------------
+# 5️⃣ Copy composer files first (cache-friendly)
+# ----------------------------
 
-# Install Laravel dependencies
+
+# ----------------------------
+# 6️⃣ Install Laravel dependencies
+# ----------------------------
+
+
+# ----------------------------
+# 7️⃣ Copy app source code
+# ----------------------------
+COPY . .
+RUN rm composer.lock 
 RUN composer install --no-dev --optimize-autoloader
 
-# Create SQLite database file (if using SQLite)
+# ----------------------------
+# 8️⃣ Optional: create SQLite DB
+# ----------------------------
 RUN mkdir -p database && touch database/database.sqlite
 
-# Run migrations
-RUN php artisan migrate --force
+# ----------------------------
+# 9️⃣ Set permissions (Laravel storage/cache)
+# ----------------------------
+RUN chown -R www-data:www-data storage bootstrap/cache
 
-EXPOSE 8000 9000
+# ----------------------------
+# 10️⃣ Expose port and start server
+# ----------------------------
+EXPOSE 8000
 
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
