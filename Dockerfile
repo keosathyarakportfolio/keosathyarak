@@ -74,7 +74,7 @@ RUN mkdir -p database && touch database/database.sqlite
 # 9️⃣ Set permissions (Laravel storage/cache)
 # ----------------------------
 RUN chown -R www-data:www-data storage bootstrap/cache
-
+RUN php artisan migrate 
 # ----------------------------
 # 10️⃣ Expose port and start server
 # ----------------------------
