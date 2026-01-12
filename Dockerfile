@@ -74,10 +74,11 @@ RUN mkdir -p database && touch database/database.sqlite
 # 9️⃣ Set permissions (Laravel storage/cache)
 # ----------------------------
 RUN chown -R www-data:www-data storage bootstrap/cache
-RUN php artisan migrate 
+
 # ----------------------------
 # 10️⃣ Expose port and start server
 # ----------------------------
 EXPOSE 8000
 
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+CMD php artisan migrate:fresh --force && php artisan serve --host=0.0.0.0 --port=8000
+
