@@ -22,7 +22,7 @@
     <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
         <!-- Logo -->
         <h1 class="text-2xl font-semibold flex items-center gap-2">
-            <i class="fas fa-tools text-4xl"></i> KEO SATHYARAK
+            <i class="fas fa-tools text-4xl"></i> New Generation Tools
         </h1>
 
         <!-- Desktop nav -->
@@ -30,13 +30,14 @@
             <a href="{{ url('/') }}" class="flex items-center gap-1 hover:underline">
                 <i class="fas fa-download"></i> Download
             </a>
-            <a href="{{ url('/aboutme') }}" class="flex items-center gap-1 hover:underline">
-                <i class="fas fa-user"></i> About Me
-            </a>
-            <!-- AI Chatbot link -->
+             <!-- AI Chatbot link -->
             <a href="{{ url('/aichat') }}" class="flex items-center gap-1 hover:underline">
                 <i class="fas fa-robot"></i> Chatbot
             </a>
+            <a href="{{ url('/aboutme') }}" class="flex items-center gap-1 hover:underline">
+                <i class="fas fa-user"></i> About Me
+            </a>
+           
 
             <!-- Dark mode toggle -->
             <button id="dark-toggle" class="ml-4 focus:outline-none">
@@ -56,15 +57,16 @@
             class="flex items-center gap-1 py-2 hover:bg-orange-500 dark:hover:bg-gray-700 rounded">
             <i class="fas fa-download"></i> Download
         </a>
-        <a href="{{ url('/aboutme') }}"
-            class="flex items-center gap-1 py-2 hover:bg-orange-500 dark:hover:bg-gray-700 rounded">
-            <i class="fas fa-user"></i> About Me
-        </a>
         <!-- AI Chatbot mobile -->
         <a href="{{ url('/aichat') }}"
             class="flex items-center gap-1 py-2 hover:bg-orange-500 dark:hover:bg-gray-700 rounded">
             <i class="fas fa-robot"></i> Chatbot
         </a>
+        <a href="{{ url('/aboutme') }}"
+            class="flex items-center gap-1 py-2 hover:bg-orange-500 dark:hover:bg-gray-700 rounded">
+            <i class="fas fa-user"></i> About Me
+        </a>
+        
 
         <!-- Dark mode toggle mobile -->
         <button id="dark-toggle-mobile"
@@ -124,7 +126,7 @@
 
     <footer class="bg-orange-500 dark:bg-gray-900 text-white mt-8 transition-colors duration-300">
         <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center text-sm">
-            <span>© {{ date('Y') }} Keo Sathyarak. All rights reserved.</span>
+            <span>© {{ date('Y') }} New generation tools. All rights reserved.</span>
         </div>
     </footer>
 
