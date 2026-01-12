@@ -10,51 +10,73 @@ class ChatbotController extends Controller
     public function chat(Request $request)
     {
         $request->validate([
-            'message',
+            'message' => 'required|string',
+            'history' => 'nullable|array',
             'bot' => 'nullable|string|max:100',
         ]);
 
         $userMessage = $request->message;
         $botName = $request->bot ?? 'Support Bot';
+        $history = $request->history ?? [];
 
-        $apiKey = env('GEMINI_API_KEY'); // Add your key in .env
+        $apiKey = env('GEMINI_API_KEY');
 
-        // Add personality depending on bot
-        $prompt = match($botName) {
-            'Sales Bot' => "You are a helpful and persuasive sales assistant.\nUser: $userMessage",
-            'AI Tutor' => "You are a patient AI tutor. Explain clearly and simply.\nUser: $userMessage",
-            default => "You are a helpful support bot.\nUser: $userMessage",
+        $systemPrompt = match($botName) {
+            'Sales Bot' => "You are a helpful and persuasive sales assistant.",
+            'AI Tutor' => "You are a patient AI tutor. Explain clearly and simply.",
+            default => "You are a helpful support bot.",
         };
+
+        $contents = [
+            [
+                'role' => 'user',
+                'parts' => [
+                    ['text' => $systemPrompt]
+                ]
+            ]
+        ];
+
+        foreach ($history as $msg) {
+            if (isset($msg['role'], $msg['parts'])) {
+                $contents[] = [
+                    'role' => $msg['role'],
+                    'parts' => $msg['parts']
+                ];
+            }
+        }
+
+        $contents[] = [
+            'role' => 'user',
+            'parts' => [
+                ['text' => $userMessage]
+            ]
+        ];
 
         try {
             $response = Http::post(
                 "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={$apiKey}",
                 [
-                    'contents' => [
-                        [
-                            'parts' => [
-                                ['text' => $prompt]
-                            ]
-                        ]
-                    ]
+                    'contents' => $contents
                 ]
             );
 
             if ($response->failed()) {
                 return response()->json([
-                    'reply' => 'Error from AI service: ',
+                    'reply' => 'Error from AI service.',
                 ], 500);
             }
 
-            $reply = $response->json('candidates.0.content.parts.0.text') ?? 'No response from AI';
+            $replyText = $response->json('candidates.0.content.parts.0.text') ?? 'No response from AI';
 
             return response()->json([
-                'reply' => $reply,
+                'reply' => $replyText,
+                'role' => 'model',
+                'parts' => [['text' => $replyText]],
             ]);
 
         } catch (\Exception $e) {
             return response()->json([
-                'reply' => 'abc: ' . $e->getMessage(),
+                'reply' => 'Error: ' . $e->getMessage(),
             ], 500);
         }
     }
