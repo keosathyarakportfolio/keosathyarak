@@ -47,7 +47,7 @@
                 id="videoUrlInput"
                 name="videoUrl" 
                 type="url" 
-                placeholder="Enter video link (TikTok, Facebook, YouTube, Pinterest, DramaBox)" 
+                placeholder="Enter video link (TikTok, Pinterest, DramaBox)" 
                 value="{{ old('videoUrl', $videoUrl ?? '') }}" 
                 class="w-full px-4 py-3 pr-10 border rounded-md 
                        text-gray-800 dark:text-gray-200 
