@@ -30,10 +30,10 @@
             <a href="{{ url('/') }}" class="flex items-center gap-1 hover:underline">
                 <i class="fas fa-download"></i> Download
             </a>
-             <!-- AI Chatbot link -->
+             <!-- AI Chatbot link
             <a href="{{ url('/aichat') }}" class="flex items-center gap-1 hover:underline">
                 <i class="fas fa-robot"></i> Chatbot
-            </a>
+            </a> -->
             <a href="{{ url('/aboutme') }}" class="flex items-center gap-1 hover:underline">
                 <i class="fas fa-user"></i> About Me
             </a>
@@ -58,10 +58,10 @@
             <i class="fas fa-download"></i> Download
         </a>
         <!-- AI Chatbot mobile -->
-        <a href="{{ url('/aichat') }}"
+        <!-- <a href="{{ url('/aichat') }}"
             class="flex items-center gap-1 py-2 hover:bg-orange-500 dark:hover:bg-gray-700 rounded">
             <i class="fas fa-robot"></i> Chatbot
-        </a>
+        </a> -->
         <a href="{{ url('/aboutme') }}"
             class="flex items-center gap-1 py-2 hover:bg-orange-500 dark:hover:bg-gray-700 rounded">
             <i class="fas fa-user"></i> About Me
